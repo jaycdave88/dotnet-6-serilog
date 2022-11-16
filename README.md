@@ -36,4 +36,4 @@ to access it.
     ```
     http://{LoadBalancerIP}:8000  
     ```  
-5) See application traces correlated to application logs within[Datadog Traces](https://app.datadoghq.com/apm/traces)  
+5) See application traces correlated to application logs within [Datadog Traces](https://app.datadoghq.com/apm/traces)  
