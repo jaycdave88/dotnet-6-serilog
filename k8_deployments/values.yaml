@@ -1,0 +1,121 @@
+## Default values for Datadog Agent
+## See Datadog helm documentation to learn more:
+## https://docs.datadoghq.com/agent/kubernetes/helm/
+
+## FOR AN EFFORTLESS UPGRADE PATH, DO NOT COPY THIS FILE AS YOUR OWN values.yaml.
+## ONLY SET THE VALUES YOU WANT TO OVERRIDE IN YOUR values.yaml.
+
+datadog:
+
+  # datadog.apiKeyExistingSecret -- Use existing Secret which stores API key instead of creating a new one. The value should be set with the `api-key` key inside the secret.
+
+  ## If set, this parameter takes precedence over "apiKey".
+  apiKeyExistingSecret: datadog-agent
+
+  # datadog.clusterName -- Set a unique cluster name to allow scoping hosts and Cluster Checks easily
+
+  ## The name must be unique and must be dot-separated tokens with the following restrictions:
+  ## * Lowercase letters, numbers, and hyphens only.
+  ## * Must start with a letter.
+  ## * Must end with a number or a letter.
+  ## * Overall length should not be higher than 80 characters.
+  ## Compared to the rules of GKE, dots are allowed whereas they are not allowed on GKE:
+  ## https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters#Cluster.FIELDS.name
+  clusterName:
+
+  # kubelet configuration
+  kubelet:
+    # datadog.kubelet.tlsVerify -- Toggle kubelet TLS verification
+    # @default -- true
+    tlsVerify: false
+
+  ## dogstatsd configuration
+
+  ## ref: https://docs.datadoghq.com/agent/kubernetes/dogstatsd/
+  ## To emit custom metrics from your Kubernetes application, use DogStatsD.
+  dogstatsd:
+
+    # datadog.dogstatsd.port -- Override the Agent DogStatsD port
+
+    ## Note: Make sure your client is sending to the same UDP port.
+    port: 8125
+  ## dogstatsd configuration
+
+    # datadog.dogstatsd.useHostPort -- Sets the hostPort to the same value of the container port
+
+    ## Needs to be used for sending custom metrics.
+    ## The ports need to be available on all hosts.
+    ##
+    ## WARNING: Make sure that hosts using this are properly firewalled otherwise
+    ## metrics and traces are accepted from any host able to connect to this host.
+    useHostPort: true
+
+    ## ref: https://github.com/DataDog/docker-dd-agent#environment-variables
+    nonLocalTraffic: true
+
+  # datadog.collectEvents -- Enables this to start event collection from the kubernetes API
+
+  ## Enable logs agent and provide custom configs
+  logs:
+    # datadog.logs.enabled -- Enables this to activate Datadog Agent log collection
+
+    ## ref: https://docs.datadoghq.com/agent/basic_agent_usage/kubernetes/#log-collection-setup
+    enabled: true
+
+    # datadog.logs.containerCollectAll -- Enable this to allow log collection for all containers
+
+    ## ref: https://docs.datadoghq.com/agent/basic_agent_usage/kubernetes/#log-collection-setup
+    containerCollectAll: true
+
+    # datadog.logs.autoMultiLineDetection -- Allows the Agent to detect common multi-line patterns automatically.
+
+    ## ref: https://docs.datadoghq.com/agent/logs/advanced_log_collection/?tab=configurationfile#automatic-multi-line-aggregation
+    autoMultiLineDetection: true
+
+  # datadog.containerExcludeLogs -- Exclude logs from the Agent Autodiscovery,
+  # as a space-separated list
+  containerExcludeLogs: kube_namespace:kube*
+
+  ## Enable apm agent and provide custom configs
+  apm:
+    # datadog.apm.portEnabled -- Enable APM over TCP communication (port 8126 by default)
+
+    ## ref: https://docs.datadoghq.com/agent/kubernetes/apm/
+    portEnabled: true
+
+  ## Enable process agent and provide custom configs
+  processAgent:
+    # datadog.processAgent.enabled -- Set this to true to enable live process monitoring agent
+
+    ## Note: /etc/passwd is automatically mounted to allow username resolution.
+    ## ref: https://docs.datadoghq.com/graphing/infrastructure/process/#kubernetes-daemonset
+    enabled: true
+
+    # datadog.processAgent.processCollection -- Set this to true to enable process collection in process monitoring agent
+
+    ## Requires processAgent.enabled to be set to true to have any effect
+    processCollection: true
+
+    # datadog.processAgent.processDiscovery -- Enables or disables autodiscovery of integrations
+    processDiscovery: true
+
+  networkMonitoring:
+    # datadog.networkMonitoring.enabled -- Enable network performance monitoring
+    enabled: true
+
+  ## Enable security agent and provide custom configs
+  securityAgent:
+    compliance:
+      # datadog.securityAgent.compliance.enabled -- Set to true to enable Cloud Security Posture Management (CSPM)
+      enabled: true
+
+    runtime:
+      # datadog.securityAgent.runtime.enabled -- Set to true to enable Cloud Workload Security (CWS)
+      enabled: true
+
+      # datadog.securityAgent.runtime.fimEnabled -- Set to true to enable Cloud Workload Security (CWS) File Integrity Monitoring
+      fimEnabled: true
+
+      network:
+        # datadog.securityAgent.runtime.network.enabled -- Set to true to enable the collection of CWS network events
+        enabled: true

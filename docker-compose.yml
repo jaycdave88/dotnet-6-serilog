@@ -1,0 +1,26 @@
+version: "3"
+services:
+  web:
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - datadog-agent
+    environment:
+      DD_ENV: "my-container-test"
+      DD_AGENT_HOST: "datadog-agent"
+      DD_TRACE_ROUTE_TEMPLATE_RESOURCE_NAMES_ENABLED: "true"
+      DD_RUNTIME_METRICS_ENABLED: "true"
+      DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS: "Serilog"
+      DD_API_KEY: ${DD_API_KEY}
+
+  datadog-agent:
+    image: "gcr.io/datadoghq/agent:7"
+    environment:
+      DD_API_KEY: ${DD_API_KEY}
+      DD_APM_ENABLED: "true"
+      DD_APM_NON_LOCAL_TRAFFIC: "true"
+      DD_DOGSTATSD_NON_LOCAL_TRAFFIC: "true"
+      DD_HOSTNAME: "my-host"

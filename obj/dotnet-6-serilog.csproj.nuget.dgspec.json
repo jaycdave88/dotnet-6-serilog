@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/jay.dave/code/dotnet-6-serilog/dotnet-6-serilog.csproj": {}
+  },
+  "projects": {
+    "/Users/jay.dave/code/dotnet-6-serilog/dotnet-6-serilog.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/jay.dave/code/dotnet-6-serilog/dotnet-6-serilog.csproj",
+        "projectName": "dotnet-6-serilog",
+        "projectPath": "/Users/jay.dave/code/dotnet-6-serilog/dotnet-6-serilog.csproj",
+        "packagesPath": "/Users/jay.dave/.nuget/packages/",
+        "outputPath": "/Users/jay.dave/code/dotnet-6-serilog/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/jay.dave/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.403/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
